@@ -26,9 +26,11 @@ public class GroundedState : State
         Vector3 forward = character.transform.TransformDirection(Vector3.forward);
         Vector3 right = character.transform.TransformDirection(Vector3.right);
         Vector3 up = character.transform.TransformDirection(Vector3.up);
-        float curSpeedX = speed * Input.GetAxis("Vertical");
+        float curSpeedX = speed * character.moveInput.y;
+        //float curSpeedX = speed * Input.GetAxis("Vertical");
         float curSpeedY = character.moveDirection.y;
-        float curSpeedZ = speed * Input.GetAxis("Horizontal");
+        float curSpeedZ = speed * character.moveInput.x;
+        //float curSpeedZ = speed * Input.GetAxis("Horizontal");
         character.moveDirection = (forward * curSpeedX) + (right * curSpeedZ) + (up * curSpeedY);
     }
 

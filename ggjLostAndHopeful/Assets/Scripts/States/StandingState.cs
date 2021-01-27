@@ -21,7 +21,7 @@ public class StandingState : GroundedState
     public override void HandleInput()
     {
         base.HandleInput();
-        jump = Input.GetButtonDown("Jump");
+        jump = character.jump;
     }
 
     public override void LogicUpdate()

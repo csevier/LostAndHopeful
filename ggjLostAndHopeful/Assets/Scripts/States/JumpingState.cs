@@ -11,6 +11,7 @@ public class JumpingState : AirborneState
     public override void Enter()
     {
         base.Enter();
+        character.jump = false;
         character.moveDirection.y = character.jumpForce;
     }
 
