@@ -32,15 +32,15 @@ public class Character : MonoBehaviour
         movementSM.Initialize(falling);
 
         // Lock cursor
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public bool IsGrounded()
     {
         return Physics.Raycast(transform.position, Vector3.down, groundDistance);
     }
-
+    
     public void Move(Vector3 moveDirection)
     {
         characterController.Move(moveDirection * Time.deltaTime);
