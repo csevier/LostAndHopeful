@@ -609,9 +609,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sensitivity: 2
-  smoothing: 2
+  smoothing: 5
   lookYLimit: 60
-  character: {fileID: 0}
+  character: {fileID: 2144225881}
 --- !u!1 &843294877
 GameObject:
   m_ObjectHideFlags: 0
@@ -1173,6 +1173,9 @@ MonoBehaviour:
   gravity: 20
   moveDirection: {x: 0, y: 0, z: 0}
   debug: {fileID: 1622350671}
+  moveInput: {x: 0, y: 0}
+  lookInput: {x: 0, y: 0}
+  jump: 0
 --- !u!143 &2144225882
 CharacterController:
   m_ObjectHideFlags: 0
