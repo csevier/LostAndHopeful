@@ -1,0 +1,28 @@
+At its core Lost and Hopeful is a multiplayer hide and go seek game.
+
+Setting:
+Island for players to run around. Big enough to be for for about 2-5 ppl.
+- Ruins?
+- Pipes for teleport
+
+
+Gameplay:
+Zombie style hide and go seek. Designated seekers "The Hopefilled" use the hope bursting out of their eyes to find "The Lost". 
+Once a lost is captured they become Hopefilled and seek out friendship.
+
+Hopefilled objective is to capture the lost and make friends with them.
+The lost objective is to stay unfound for as long as possible.
+ - Sub objective is to capture the recluse orbs. (The lost want to stay lost.). When a lost captures a recluse orb it gives the the power of
+   annoyance to ward away friends with obnoxuous sounds and lights on their hat. The annoyance skill increases the more orbs are found.
+ - Sound gets louder more lights get added to hat and have brighter lumens and distance.
+ - The lost maybe get point based on how long they keep their hat on multiplied by their recluse orbs.
+   - See this is the joke because the lost are actually begging to be found and have friends too. Oh yeah, psychology. 
+
+Game ends when all are friends by finding all lost.
+
+Loop resets and picks another hopefilled.
+
+
+
+
+
