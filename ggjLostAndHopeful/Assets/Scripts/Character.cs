@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Mirror;
 
 [RequireComponent(typeof(CharacterController))]
 
-public class Character : MonoBehaviour
+public class Character : NetworkBehaviour
 {
     public float speed = 10.0f;
     public float jumpForce = 8.0f;
@@ -32,8 +33,8 @@ public class Character : MonoBehaviour
         movementSM.Initialize(falling);
 
         // Lock cursor
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public bool IsGrounded()
@@ -48,8 +49,11 @@ public class Character : MonoBehaviour
 
     void Update()
     {
-        movementSM.CurrentState.HandleInput();
-        movementSM.CurrentState.LogicUpdate();
+        if (isLocalPlayer)
+        {
+            movementSM.CurrentState.HandleInput();
+            movementSM.CurrentState.LogicUpdate();
+        }
         debug.text = movementSM.CurrentState.GetType().Name;
     }
 
