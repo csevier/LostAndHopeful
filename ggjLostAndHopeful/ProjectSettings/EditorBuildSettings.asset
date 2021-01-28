@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/NetworkPlay.unity
-    guid: 48cc8e2de6a6186c8a5001a0f1130278
+    path: Assets/Scenes/Island.unity
+    guid: bc1fe928961866f97a3b11853da0e317
   m_configObjects: {}
