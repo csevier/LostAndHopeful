@@ -59,6 +59,9 @@ public class Character : NetworkBehaviour
 
     void FixedUpdate()
     {
-        movementSM.CurrentState.PhysicsUpdate();
+        if (isLocalPlayer)
+        {
+            movementSM.CurrentState.PhysicsUpdate();
+        }
     }
 }
