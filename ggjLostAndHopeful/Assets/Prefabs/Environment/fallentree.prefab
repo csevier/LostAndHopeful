@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 8440439402947220851}
   - component: {fileID: 4795679942126738134}
   - component: {fileID: 7307471059517632028}
-  - component: {fileID: 2756861539074927713}
+  - component: {fileID: 859517674045788975}
   m_Layer: 0
-  m_Name: fallentree_20210127
+  m_Name: fallentree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9108994542829391817}
   m_LocalRotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: -23.313356, y: 54.50692, z: 111.317795}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -81,8 +81,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &2756861539074927713
-MeshCollider:
+--- !u!136 &859517674045788975
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -91,7 +91,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 7277539043999263858, guid: dbe8a231f91f92942b5a5d976fe1fbd2, type: 3}
+  m_Radius: 0.23630263
+  m_Height: 2.7410145
+  m_Direction: 0
+  m_Center: {x: -0.100000024, y: 0.024778143, z: 0.065448865}

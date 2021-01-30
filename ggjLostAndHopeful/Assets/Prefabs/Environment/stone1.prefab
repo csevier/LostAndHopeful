@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1990783326577509841}
   - component: {fileID: 3174885412177136244}
   - component: {fileID: 858923364821221054}
-  - component: {fileID: 5017889794194063867}
+  - component: {fileID: 6957132201184680846}
   m_Layer: 0
   m_Name: stone1
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1219207005522894699}
   m_LocalRotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
   m_LocalPosition: {x: 11.039106, y: 45.5503, z: 130.85942}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -80,8 +80,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &5017889794194063867
-MeshCollider:
+--- !u!135 &6957132201184680846
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -90,7 +90,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 7941049218214575744, guid: 3aa61f809a377ae4db01f1d848f4bb70, type: 3}
+  serializedVersion: 2
+  m_Radius: 0.037776534
+  m_Center: {x: 0.0030450765, y: 0.027181173, z: 0.000028494745}
