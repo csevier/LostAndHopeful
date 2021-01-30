@@ -43,13 +43,15 @@ public class Character : NetworkBehaviour
         movementSM.Initialize(falling);
 
         // Lock cursor
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public bool IsGrounded()
     {
-        return Physics.Raycast(transform.position, Vector3.down, groundDistance);
+        
+        //bool isGrounded = Physics.Raycast(transform.position, Vector3.down, groundDistance);
+        return true;
     }
     
     public void Move(Vector3 moveDirection)
@@ -81,7 +83,6 @@ public class Character : NetworkBehaviour
 
     void MouseLook()
     {
-
         Vector2 mouseDelta = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
         mouseDelta = Vector2.Scale(mouseDelta, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
 
