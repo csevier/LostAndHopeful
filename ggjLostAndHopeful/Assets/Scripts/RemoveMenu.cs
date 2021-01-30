@@ -19,5 +19,11 @@ public class RemoveMenu : NetworkBehaviour
         {
             Destroy(man);
         }
+        
+        GameObject title = GameObject.Find("Title");
+        if (title != null)
+        {
+            Destroy(title);
+        }
     }
 }
