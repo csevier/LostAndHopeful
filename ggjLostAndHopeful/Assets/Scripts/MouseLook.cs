@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class MouseLook : NetworkBehaviour
+public class MouseLook: MonoBehaviour
 {
     public float sensitivity = 2.0f;
     public float smoothing = 5.0f;
@@ -20,8 +20,6 @@ public class MouseLook : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isLocalPlayer)
-        {
             Vector2 mouseDelta = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
             mouseDelta = Vector2.Scale(mouseDelta, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
 
@@ -33,6 +31,5 @@ public class MouseLook : NetworkBehaviour
 
             transform.localRotation = Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
             character.transform.localRotation = Quaternion.AngleAxis(mouseLook.x, character.transform.up);
-        }
     }
 }

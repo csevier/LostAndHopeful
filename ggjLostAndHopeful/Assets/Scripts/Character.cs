@@ -14,6 +14,15 @@ public class Character : NetworkBehaviour
     public Vector3 moveDirection = Vector3.zero;
     private float groundDistance = 1.1f;
 
+
+    public float sensitivity = 2.0f;
+    public float smoothing = 5.0f;
+    public float lookYLimit = 60.0f;
+
+    private Transform childCameraTransform;
+    private Vector2 mouseLook;
+    private Vector2 smoothV;
+
     CharacterController characterController;
     public StateMachine movementSM;
     public StandingState standing;
@@ -25,6 +34,7 @@ public class Character : NetworkBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        childCameraTransform = transform.Find("Main Camera");
 
         movementSM = new StateMachine();
         standing = new StandingState(this, movementSM);
@@ -44,7 +54,10 @@ public class Character : NetworkBehaviour
     
     public void Move(Vector3 moveDirection)
     {
-        characterController.Move(moveDirection * Time.deltaTime);
+        if (isLocalPlayer)
+        {
+            characterController.Move(moveDirection * Time.deltaTime);
+        }
     }
 
     void Update()
@@ -62,6 +75,24 @@ public class Character : NetworkBehaviour
         if (isLocalPlayer)
         {
             movementSM.CurrentState.PhysicsUpdate();
+            MouseLook();
         }
     }
+
+    void MouseLook()
+    {
+
+        Vector2 mouseDelta = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
+        mouseDelta = Vector2.Scale(mouseDelta, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
+
+        smoothV.x = Mathf.Lerp(smoothV.x, mouseDelta.x, 1f / smoothing);
+        smoothV.y = Mathf.Lerp(smoothV.y, mouseDelta.y, 1f / smoothing);
+
+        mouseLook += smoothV;
+        mouseLook.y = Mathf.Clamp(mouseLook.y, -lookYLimit, lookYLimit);
+
+        childCameraTransform.localRotation = Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
+        transform.localRotation = Quaternion.AngleAxis(mouseLook.x, transform.up);
+    }
+
 }

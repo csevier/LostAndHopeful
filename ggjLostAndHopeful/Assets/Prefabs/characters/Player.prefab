@@ -103,7 +103,6 @@ GameObject:
   - component: {fileID: 5107346857012365791}
   - component: {fileID: 5107346857012365789}
   - component: {fileID: 5107346857012365790}
-  - component: {fileID: 5107346857012365788}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -179,24 +178,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5107346857012365776}
   m_Enabled: 1
---- !u!114 &5107346857012365788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5107346857012365776}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8666a6d5848b709428cdb40566379530, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  sensitivity: 2
-  smoothing: 2
-  lookYLimit: 60
-  character: {fileID: 0}
 --- !u!1 &5107346857859109300
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,6 +194,7 @@ GameObject:
   - component: {fileID: 5107346857859109310}
   - component: {fileID: 8012058033315832997}
   - component: {fileID: 7221958788332617143}
+  - component: {fileID: 5652966141436969946}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -334,6 +316,9 @@ MonoBehaviour:
   jumpForce: 8
   gravity: 20
   moveDirection: {x: 0, y: 0, z: 0}
+  sensitivity: 2
+  smoothing: 5
+  lookYLimit: 60
   debug: {fileID: 5107346858139386024}
 --- !u!114 &8012058033315832997
 MonoBehaviour:
@@ -369,6 +354,25 @@ MonoBehaviour:
   localPositionSensitivity: 0.01
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
+--- !u!114 &5652966141436969946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5107346857859109300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734b48bea0b204338958ee3d885e11f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 1
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
+  localScaleSensitivity: 0.01
+  target: {fileID: 5107346857012365791}
 --- !u!1 &5107346858008947689
 GameObject:
   m_ObjectHideFlags: 0
