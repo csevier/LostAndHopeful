@@ -51,7 +51,7 @@ public class Character : NetworkBehaviour
     {
         
         //bool isGrounded = Physics.Raycast(transform.position, Vector3.down, groundDistance);
-        return true;
+        return characterController.isGrounded;
     }
     
     public void Move(Vector3 moveDirection)
