@@ -43,8 +43,8 @@ public class Character : NetworkBehaviour
         movementSM.Initialize(falling);
 
         // Lock cursor
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public bool IsGrounded()
