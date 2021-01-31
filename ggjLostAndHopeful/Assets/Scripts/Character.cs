@@ -49,6 +49,8 @@ public class Character : NetworkBehaviour
     public Texture lostTexture;
     public Texture lostTexture2;
     public Texture lostTextureHandsome;
+    
+    public ParticleSystem changeEffect;
 
     [SyncVar(hook=nameof(HandleTypeUpdate))] 
     [SerializeField] 
@@ -81,8 +83,8 @@ public class Character : NetworkBehaviour
         movementSM.Initialize(falling);
 
         // Lock cursor
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public override void OnStartLocalPlayer()
@@ -117,7 +119,10 @@ public class Character : NetworkBehaviour
         //debug.text = movementSM.CurrentState.GetType().Name;
         DepleteEnergy();
         energySlider.value = energy;
-
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
     }
 
     void FixedUpdate()
@@ -210,10 +215,14 @@ public class Character : NetworkBehaviour
 
         }
     }
-    
+
     private void HandleTypeUpdate(string oldType, string newType)
     {
         this.type = newType;
+        if (oldType == "Lost" && newType == "Hopeful")
+        {
+            changeEffect.Play();
+        }
         AdjustHat();
     }
     
@@ -228,21 +237,14 @@ public class Character : NetworkBehaviour
             Character other = hit.collider.gameObject.GetComponent<Character>();
             if (other != null)
             {
-                Debug.Log("Did Hit Player");
                 other.SetCharacterType("Hopeful");
+                return true;
             }
-            else
-            {
-                Debug.Log("Did Hit Object");
-            }
-
-            return true;
+            return false;
         }
         else
         {
-            Debug.Log("Did not Hit Anything");
             return false;
         }
     }
-
 }
