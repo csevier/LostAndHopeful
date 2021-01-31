@@ -51,6 +51,7 @@ public class Character : NetworkBehaviour
     public Texture lostTextureHandsome;
     
     public ParticleSystem changeEffect;
+    public AudioSource changeSound;
 
     [SyncVar(hook=nameof(HandleTypeUpdate))] 
     [SerializeField] 
@@ -222,6 +223,7 @@ public class Character : NetworkBehaviour
         if (oldType == "Lost" && newType == "Hopeful")
         {
             changeEffect.Play();
+            changeSound.Play();
         }
         AdjustHat();
     }
