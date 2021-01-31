@@ -15,7 +15,7 @@ public class Character : NetworkBehaviour
     public Vector3 moveDirection = Vector3.zero;
 
     [SyncVar]
-    private float energy = 100.0f;
+    public float energy = 100.0f;
 
     public float sensitivity = 2.0f;
     public float smoothing = 5.0f;
@@ -82,8 +82,8 @@ public class Character : NetworkBehaviour
         movementSM.Initialize(falling);
 
         // Lock cursor
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public override void OnStartLocalPlayer()
@@ -127,6 +127,16 @@ public class Character : NetworkBehaviour
         {
             walkSound.Stop();
         }
+
+        if (type == "Lost" && energy <= 0)
+        {
+            speed = 5.0f;// half
+        }
+        else 
+        {
+            speed = 10.0f;
+        }
+        
         if (Input.GetKey("escape"))
         {
             Application.Quit();

@@ -15,12 +15,13 @@ public class StandingState : GroundedState
     {
         base.Enter();
         character.animator.Play("Idle");
-        speed = character.speed;
+        speed = character.speed;    
         jump = false;
     }
 
     public override void HandleInput()
     {
+        speed = character.speed;
         base.HandleInput();
         jump = Input.GetButtonDown("Jump");
     }
