@@ -102,7 +102,7 @@ public class Character : NetworkBehaviour
         if (!isLocalPlayer) return;
         movementSM.CurrentState.HandleInput();
         movementSM.CurrentState.LogicUpdate();
-        debug.text = movementSM.CurrentState.GetType().Name;
+        //debug.text = movementSM.CurrentState.GetType().Name;
         DepleteEnergy();
         energySlider.value = energy;
 
@@ -144,11 +144,17 @@ public class Character : NetworkBehaviour
 
     public void OnOrbCollected()
     {
-        if (isServer) {
+        if (isServer)
+        {
             energy += 20;
             // energy is sync to specific client called on server instance of player
             if (energy > 100.0f)
+            {
+
                 energy = 100.0f;
+            }
+        }
+    }
 
     [Server]
     public void SetCharacterType(string type)

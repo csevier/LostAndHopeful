@@ -10,10 +10,6 @@ public class OrbPlacer : NetworkBehaviour
     public float radius;
     public int amount;
 
-    void Start()
-    {
-    }
-
     public override void OnStartServer()
     {
         base.OnStartServer();
