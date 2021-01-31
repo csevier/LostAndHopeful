@@ -13,7 +13,6 @@ public class Character : NetworkBehaviour
     public float jumpForce = 8.0f;
     public float gravity = 20.0f;
     public Vector3 moveDirection = Vector3.zero;
-    private float groundDistance = 1.1f;
 
     [SyncVar]
     private float energy = 100.0f;
@@ -36,8 +35,6 @@ public class Character : NetworkBehaviour
     public StandingState standing;
     public JumpingState jumping;
     public FallingState falling;
-
-    public Text debug;
 
     private GameObject leftEye;
     private GameObject rightEye;
