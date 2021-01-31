@@ -117,7 +117,10 @@ public class Character : NetworkBehaviour
         //debug.text = movementSM.CurrentState.GetType().Name;
         DepleteEnergy();
         energySlider.value = energy;
-
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
     }
 
     void FixedUpdate()
@@ -228,21 +231,14 @@ public class Character : NetworkBehaviour
             Character other = hit.collider.gameObject.GetComponent<Character>();
             if (other != null)
             {
-                Debug.Log("Did Hit Player");
                 other.SetCharacterType("Hopeful");
+                return true;
             }
-            else
-            {
-                Debug.Log("Did Hit Object");
-            }
-
-            return true;
+            return false;
         }
         else
         {
-            Debug.Log("Did not Hit Anything");
             return false;
         }
     }
-
 }
