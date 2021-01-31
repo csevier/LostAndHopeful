@@ -44,6 +44,12 @@ public class Character : NetworkBehaviour
     private Text typeUI;
     private GameObject _hat;
 
+
+    public Texture hopefulTexture;
+    public Texture lostTexture;
+    public Texture lostTexture2;
+    public Texture lostTextureHandsome;
+
     [SyncVar(hook=nameof(HandleTypeUpdate))] 
     [SerializeField] 
     public string type = "Hopeful";
@@ -145,6 +151,8 @@ public class Character : NetworkBehaviour
         //}
         if (type == "Hopeful") return;
         energy -= 3.0f * Time.deltaTime;
+        //float f = (100.0f - energy / 100.0f);
+        //transform.localScale += new Vector3(f, f, f);
     }
 
     public void OnOrbCollected()
@@ -175,6 +183,9 @@ public class Character : NetworkBehaviour
             if (type == "Lost")
             {
                 // turn on enery ui and turn off lights
+                var mat = GetComponent<MeshRenderer>().materials[0];
+                if (mat != null)
+                    mat.SetTexture("_MainTex", lostTexture);
                 typeUI.text = "You are: Lost";
                 energySlider.gameObject.SetActive(true);
                 leftEye.SetActive(false);
@@ -183,6 +194,9 @@ public class Character : NetworkBehaviour
             else
             {
                 typeUI.text = "You are: Hopeful";
+                var mat = GetComponent<MeshRenderer>().materials[0];
+                if (mat != null)
+                    mat.SetTexture("_MainTex", hopefulTexture);
                 energySlider.gameObject.SetActive(false);
                 leftEye.SetActive(true);
                 rightEye.SetActive(true);
@@ -190,7 +204,7 @@ public class Character : NetworkBehaviour
 
         }
     }
-
+    
     private void HandleTypeUpdate(string oldType, string newType)
     {
         this.type = newType;
