@@ -43,7 +43,7 @@ public class Character : NetworkBehaviour
     private GameObject rightEye;
     private Text typeUI;
     private GameObject _hat;
-
+    public Animator animator;
 
     public Texture hopefulTexture;
     public Texture lostTexture;
@@ -68,8 +68,10 @@ public class Character : NetworkBehaviour
 
     void Start()
     {
+        animator = GetComponent<Animator>();
+        animator.Play("Idle");
         characterController = GetComponent<CharacterController>();
-        _hat = gameObject.transform.Find("hat").gameObject;
+        _hat = gameObject.transform.Find("metarig/spine/spine.001/spine.002/hat").gameObject;
         leftEye = gameObject.transform.Find("PlayerCamera/leftEye").gameObject;
         rightEye = gameObject.transform.Find("PlayerCamera/rightEye").gameObject;
         typeUI = gameObject.transform.Find("PlayerCamera/UI/TypeUI").GetComponent<Text>();
@@ -156,8 +158,6 @@ public class Character : NetworkBehaviour
         //}
         if (type == "Hopeful") return;
         energy -= 3.0f * Time.deltaTime;
-        //float f = (100.0f - energy / 100.0f);
-        //transform.localScale += new Vector3(f, f, f);
     }
 
     public void OnOrbCollected()
@@ -188,9 +188,12 @@ public class Character : NetworkBehaviour
             if (type == "Lost")
             {
                 // turn on enery ui and turn off lights
-                var mat = GetComponent<MeshRenderer>().materials[0];
+                var mat = GetComponent<SkinnedMeshRenderer>().materials[0];
                 if (mat != null)
+                {
                     mat.SetTexture("_MainTex", lostTexture);
+                    mat.SetTexture("_EmissionMap", lostTexture);
+                }
                 typeUI.text = "You are: Lost";
                 energySlider.gameObject.SetActive(true);
                 leftEye.SetActive(false);
@@ -199,9 +202,12 @@ public class Character : NetworkBehaviour
             else
             {
                 typeUI.text = "You are: Hopeful";
-                var mat = GetComponent<MeshRenderer>().materials[0];
+                var mat = GetComponent<SkinnedMeshRenderer>().materials[0];
                 if (mat != null)
+                {
                     mat.SetTexture("_MainTex", hopefulTexture);
+                    mat.SetTexture("_EmissionMap", hopefulTexture);
+                }
                 energySlider.gameObject.SetActive(false);
                 leftEye.SetActive(true);
                 rightEye.SetActive(true);
