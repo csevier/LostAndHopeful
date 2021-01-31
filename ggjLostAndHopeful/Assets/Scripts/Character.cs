@@ -18,7 +18,6 @@ public class Character : NetworkBehaviour
     [SyncVar]
     private float energy = 100.0f;
 
-
     public float sensitivity = 2.0f;
     public float smoothing = 5.0f;
     public float lookYLimit = 60.0f;
@@ -32,7 +31,6 @@ public class Character : NetworkBehaviour
     private Vector2 smoothV;
 
 
-
     CharacterController characterController;
     public StateMachine movementSM;
     public StandingState standing;
@@ -41,18 +39,21 @@ public class Character : NetworkBehaviour
 
     public Text debug;
 
+    private GameObject leftEye;
+    private GameObject rightEye;
+    private Text typeUI;
     private GameObject _hat;
-    private GameObject _eyes;
+
     [SyncVar(hook=nameof(HandleTypeUpdate))] 
     [SerializeField] 
-    private string type = "Hopeful";
+    public string type = "Hopeful";
 
     void Awake()
     {
         playerCam = GetComponentInChildren<Camera>();
         playerListener = GetComponentInChildren<AudioListener>();
         // may need to be more specific if there are more sliders in the future
-        energySlider = GetComponentInChildren<Slider>(); 
+        energySlider = GetComponentInChildren<Slider>();
         playerCam.enabled = false;
         playerListener.enabled = false;
     }
@@ -61,7 +62,9 @@ public class Character : NetworkBehaviour
     {
         characterController = GetComponent<CharacterController>();
         _hat = gameObject.transform.Find("hat").gameObject;
-        _eyes = gameObject.transform.Find("PlayerCamera").gameObject;
+        leftEye = gameObject.transform.Find("PlayerCamera/leftEye").gameObject;
+        rightEye = gameObject.transform.Find("PlayerCamera/rightEye").gameObject;
+        typeUI = gameObject.transform.Find("PlayerCamera/UI/TypeUI").GetComponent<Text>();
         AdjustHat();
         movementSM = new StateMachine();
         standing = new StandingState(this, movementSM);
@@ -79,6 +82,7 @@ public class Character : NetworkBehaviour
         base.OnStartLocalPlayer();
         playerCam.enabled = true;
         playerListener.enabled = true;
+        
 
     }
 
@@ -139,18 +143,19 @@ public class Character : NetworkBehaviour
         //{
         //      BecomeAnnoying()
         //}
+        if (type == "Hopeful") return;
         energy -= 3.0f * Time.deltaTime;
     }
 
     public void OnOrbCollected()
     {
+        if (type == "Hopeful") return;
         if (isServer)
         {
             energy += 20;
             // energy is sync to specific client called on server instance of player
             if (energy > 100.0f)
             {
-
                 energy = 100.0f;
             }
         }
@@ -167,6 +172,22 @@ public class Character : NetworkBehaviour
         if (_hat != null)
         {
             _hat.SetActive(type == "Lost");
+            if (type == "Lost")
+            {
+                // turn on enery ui and turn off lights
+                typeUI.text = "You are: Lost";
+                energySlider.gameObject.SetActive(true);
+                leftEye.SetActive(false);
+                rightEye.SetActive(false);
+            }
+            else
+            {
+                typeUI.text = "You are: Hopeful";
+                energySlider.gameObject.SetActive(false);
+                leftEye.SetActive(true);
+                rightEye.SetActive(true);
+            }
+
         }
     }
 
@@ -182,7 +203,7 @@ public class Character : NetworkBehaviour
         if (type == "Lost") return false;
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(_eyes.transform.position, _eyes.transform.TransformDirection(Vector3.forward), out hit, lineOfSightDistance))
+        if (Physics.Raycast(playerCam.transform.position, playerCam.transform.TransformDirection(Vector3.forward), out hit, lineOfSightDistance))
         {
             Character other = hit.collider.gameObject.GetComponent<Character>();
             if (other != null)

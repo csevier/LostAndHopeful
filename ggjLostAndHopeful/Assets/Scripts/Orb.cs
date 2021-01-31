@@ -14,14 +14,9 @@ public class Orb : NetworkBehaviour
         {
             if (isServer)
             {
-                //tell client to tell server they picked up?
-                // need a method on the player.
-                // and call it here, is it a cmd? 
                 Character c = other.GetComponent<Character>();
+                if (c.type == "Hopeful") return;
                 c.OnOrbCollected();
-
-
-                // Destory the object
                 NetworkServer.Destroy(this.gameObject);
             }
         }

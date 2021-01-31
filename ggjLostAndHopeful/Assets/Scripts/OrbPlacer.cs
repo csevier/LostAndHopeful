@@ -24,7 +24,6 @@ public class OrbPlacer : NetworkBehaviour
             pos = new Vector3(pos.x + Random.Range(-radius, radius), 0.0f, pos.z + Random.Range(-radius, radius));
             pos.y = terrain.SampleHeight(pos) + terrain.transform.position.y;
 
-            // Instancing won't work for networking? Or will it once its registered?
             GameObject oneOrb = Instantiate(orb, pos, Quaternion.identity);
             // Spawn the server instance on all clients
             NetworkServer.Spawn(oneOrb);
