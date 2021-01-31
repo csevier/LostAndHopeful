@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
@@ -9,6 +10,14 @@ public class RemoveMenu : NetworkBehaviour
     {
         base.OnStartServer();
         RemoveTheMenu();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
     }
 
     public override void OnStartClient()

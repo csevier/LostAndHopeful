@@ -82,8 +82,8 @@ public class Character : NetworkBehaviour
         movementSM.Initialize(falling);
 
         // Lock cursor
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public override void OnStartLocalPlayer()
@@ -135,11 +135,6 @@ public class Character : NetworkBehaviour
         else 
         {
             speed = 10.0f;
-        }
-        
-        if (Input.GetKey("escape"))
-        {
-            Application.Quit();
         }
     }
 
