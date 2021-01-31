@@ -14,15 +14,22 @@ public class Character : NetworkBehaviour
     public Vector3 moveDirection = Vector3.zero;
     private float groundDistance = 1.1f;
 
+    [SyncVar]
+    private float energy = 100.0f;
+
 
     public float sensitivity = 2.0f;
     public float smoothing = 5.0f;
     public float lookYLimit = 60.0f;
 
     private Camera playerCam;
+    private AudioListener playerListener;
+    private Slider energySlider;
     private Transform childCameraTransform;
     private Vector2 mouseLook;
     private Vector2 smoothV;
+
+
 
     CharacterController characterController;
     public StateMachine movementSM;
@@ -35,7 +42,11 @@ public class Character : NetworkBehaviour
     void Awake()
     {
         playerCam = GetComponentInChildren<Camera>();
+        playerListener = GetComponentInChildren<AudioListener>();
+        // may need to be more specific if there are more sliders in the future
+        energySlider = GetComponentInChildren<Slider>(); 
         playerCam.enabled = false;
+        playerListener.enabled = false;
     }
 
     void Start()
@@ -57,6 +68,8 @@ public class Character : NetworkBehaviour
     {
         base.OnStartLocalPlayer();
         playerCam.enabled = true;
+        playerListener.enabled = true;
+
     }
 
     public bool IsGrounded()
@@ -80,6 +93,8 @@ public class Character : NetworkBehaviour
         movementSM.CurrentState.HandleInput();
         movementSM.CurrentState.LogicUpdate();
         debug.text = movementSM.CurrentState.GetType().Name;
+        DepleteEnergy();
+        energySlider.value = energy;
     }
 
     void FixedUpdate()
@@ -102,6 +117,26 @@ public class Character : NetworkBehaviour
 
         playerCam.transform.localRotation = Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
         transform.localRotation = Quaternion.AngleAxis(mouseLook.x, transform.up);
+    }
+
+    void DepleteEnergy()
+    {
+        // if (isAnnoying) return;
+        //if (energy > 0.0)
+        //{
+        //      BecomeAnnoying()
+        //}
+        energy -= 3.0f * Time.deltaTime;
+    }
+
+    public void OnOrbCollected()
+    {
+        if (isServer) {
+            energy += 20;
+            // energy is sync to specific client called on server instance of player
+            if (energy > 100.0f)
+                energy = 100.0f;
+        }
     }
 
 }

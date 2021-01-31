@@ -3,17 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
+
+
+[RequireComponent(typeof(Collider))]
 public class Orb : NetworkBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        
-    }
+        if (other.name.Contains("Player"))
+        {
+            if (isServer)
+            {
+                //tell client to tell server they picked up?
+                // need a method on the player.
+                // and call it here, is it a cmd? 
+                Character c = other.GetComponent<Character>();
+                c.OnOrbCollected();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
+                // Destory the object
+                NetworkServer.Destroy(this.gameObject);
+            }
+        }
     }
 }
