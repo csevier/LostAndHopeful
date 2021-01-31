@@ -49,6 +49,8 @@ public class Character : NetworkBehaviour
     public Texture lostTexture;
     public Texture lostTexture2;
     public Texture lostTextureHandsome;
+    
+    public ParticleSystem changeEffect;
 
     [SyncVar(hook=nameof(HandleTypeUpdate))] 
     [SerializeField] 
@@ -204,10 +206,14 @@ public class Character : NetworkBehaviour
 
         }
     }
-    
+
     private void HandleTypeUpdate(string oldType, string newType)
     {
         this.type = newType;
+        if (oldType == "Lost" && newType == "Hopeful")
+        {
+            changeEffect.Play();
+        }
         AdjustHat();
     }
     
