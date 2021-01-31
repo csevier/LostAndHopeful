@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,6 +22,7 @@ public class Character : NetworkBehaviour
     public float sensitivity = 2.0f;
     public float smoothing = 5.0f;
     public float lookYLimit = 60.0f;
+    public float lineOfSightDistance = 20.0f;
 
     private Camera playerCam;
     private AudioListener playerListener;
@@ -39,6 +41,12 @@ public class Character : NetworkBehaviour
 
     public Text debug;
 
+    private GameObject _hat;
+    private GameObject _eyes;
+    [SyncVar(hook=nameof(HandleTypeUpdate))] 
+    [SerializeField] 
+    private string type = "Hopeful";
+
     void Awake()
     {
         playerCam = GetComponentInChildren<Camera>();
@@ -52,7 +60,9 @@ public class Character : NetworkBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
-
+        _hat = gameObject.transform.Find("hat").gameObject;
+        _eyes = gameObject.transform.Find("PlayerCamera").gameObject;
+        AdjustHat();
         movementSM = new StateMachine();
         standing = new StandingState(this, movementSM);
         jumping = new JumpingState(this, movementSM);
@@ -95,6 +105,7 @@ public class Character : NetworkBehaviour
         debug.text = movementSM.CurrentState.GetType().Name;
         DepleteEnergy();
         energySlider.value = energy;
+
     }
 
     void FixedUpdate()
@@ -102,6 +113,8 @@ public class Character : NetworkBehaviour
         if (!isLocalPlayer) return;
         movementSM.CurrentState.PhysicsUpdate();
         MouseLook();
+        IsSeeingAnotherPlayer();
+
     }
 
     void MouseLook()
@@ -136,6 +149,52 @@ public class Character : NetworkBehaviour
             // energy is sync to specific client called on server instance of player
             if (energy > 100.0f)
                 energy = 100.0f;
+
+    [Server]
+    public void SetCharacterType(string type)
+    {
+        this.type = type;
+    }
+
+    void AdjustHat()
+    {
+        if (_hat != null)
+        {
+            _hat.SetActive(type == "Lost");
+        }
+    }
+
+    private void HandleTypeUpdate(string oldType, string newType)
+    {
+        this.type = newType;
+        AdjustHat();
+    }
+    
+    bool IsSeeingAnotherPlayer()
+    {
+        //lost dont look
+        if (type == "Lost") return false;
+        RaycastHit hit;
+        // Does the ray intersect any objects excluding the player layer
+        if (Physics.Raycast(_eyes.transform.position, _eyes.transform.TransformDirection(Vector3.forward), out hit, lineOfSightDistance))
+        {
+            Character other = hit.collider.gameObject.GetComponent<Character>();
+            if (other != null)
+            {
+                Debug.Log("Did Hit Player");
+                other.SetCharacterType("Hopeful");
+            }
+            else
+            {
+                Debug.Log("Did Hit Object");
+            }
+
+            return true;
+        }
+        else
+        {
+            Debug.Log("Did not Hit Anything");
+            return false;
         }
     }
 
