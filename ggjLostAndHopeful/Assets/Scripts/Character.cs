@@ -35,7 +35,8 @@ public class Character : NetworkBehaviour
     void Awake()
     {
         playerCam = GetComponentInChildren<Camera>();
-        playerCam.gameObject.SetActive(false);
+        //playerCam.gameObject.SetActive(false);
+        playerCam.enabled = false;
     }
 
     void Start()
@@ -56,7 +57,8 @@ public class Character : NetworkBehaviour
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
-        playerCam.gameObject.SetActive(true);
+        //playerCam.gameObject.SetActive(true);
+        playerCam.enabled = true;
     }
 
     public bool IsGrounded()
