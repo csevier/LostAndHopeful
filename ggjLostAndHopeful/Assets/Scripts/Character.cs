@@ -49,6 +49,7 @@ public class Character : NetworkBehaviour
     
     public ParticleSystem changeEffect;
     public AudioSource changeSound;
+    public AudioSource walkSound;
 
     [SyncVar(hook=nameof(HandleTypeUpdate))] 
     [SerializeField] 
@@ -96,8 +97,6 @@ public class Character : NetworkBehaviour
 
     public bool IsGrounded()
     {
-        
-        //bool isGrounded = Physics.Raycast(transform.position, Vector3.down, groundDistance);
         return characterController.isGrounded;
     }
     
@@ -117,6 +116,17 @@ public class Character : NetworkBehaviour
         //debug.text = movementSM.CurrentState.GetType().Name;
         DepleteEnergy();
         energySlider.value = energy;
+        if (characterController.isGrounded && (characterController.velocity != Vector3.zero))
+        {
+            if (!walkSound.isPlaying)
+            {
+                walkSound.Play();
+            }
+        }
+        else
+        {
+            walkSound.Stop();
+        }
         if (Input.GetKey("escape"))
         {
             Application.Quit();
