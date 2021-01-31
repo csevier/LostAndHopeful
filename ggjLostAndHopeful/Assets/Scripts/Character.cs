@@ -19,6 +19,7 @@ public class Character : NetworkBehaviour
     public float smoothing = 5.0f;
     public float lookYLimit = 60.0f;
 
+    private Camera playerCam;
     private Transform childCameraTransform;
     private Vector2 mouseLook;
     private Vector2 smoothV;
@@ -31,10 +32,15 @@ public class Character : NetworkBehaviour
 
     public Text debug;
 
+    void Awake()
+    {
+        playerCam = GetComponentInChildren<Camera>();
+        playerCam.gameObject.SetActive(false);
+    }
+
     void Start()
     {
         characterController = GetComponent<CharacterController>();
-        childCameraTransform = transform.Find("Main Camera");
 
         movementSM = new StateMachine();
         standing = new StandingState(this, movementSM);
@@ -45,6 +51,12 @@ public class Character : NetworkBehaviour
         // Lock cursor
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
+        playerCam.gameObject.SetActive(true);
     }
 
     public bool IsGrounded()
@@ -92,7 +104,7 @@ public class Character : NetworkBehaviour
         mouseLook += smoothV;
         mouseLook.y = Mathf.Clamp(mouseLook.y, -lookYLimit, lookYLimit);
 
-        childCameraTransform.localRotation = Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
+        playerCam.transform.localRotation = Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
         transform.localRotation = Quaternion.AngleAxis(mouseLook.x, transform.up);
     }
 
