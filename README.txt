@@ -11,14 +11,14 @@ Multiplayer hide and go seek game.
 
 Clips
 ====================
-![](gifs/optimiste.gif)
-![](gifs/caught.gif)
-![](gifs/friends.gif)
-![](gifs/landscape.gif)
-![](gifs/tushi.gif)
-![](gifs/wiggle.gif)
-![](gifs/optimiste_world.gif)
-![](gifs/helpMore.gif)
+![](optimiste.gif)
+![](caught.gif)
+![](friends.gif)
+![](landscape.gif)
+![](tushi.gif)
+![](wiggle.gif)
+![](optimiste_world.gif)
+![](helpMore.gif)
 
 
 
