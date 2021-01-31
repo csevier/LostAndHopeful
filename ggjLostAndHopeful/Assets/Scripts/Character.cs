@@ -35,7 +35,6 @@ public class Character : NetworkBehaviour
     void Awake()
     {
         playerCam = GetComponentInChildren<Camera>();
-        //playerCam.gameObject.SetActive(false);
         playerCam.enabled = false;
     }
 
@@ -57,7 +56,6 @@ public class Character : NetworkBehaviour
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
-        //playerCam.gameObject.SetActive(true);
         playerCam.enabled = true;
     }
 
@@ -70,7 +68,7 @@ public class Character : NetworkBehaviour
     
     public void Move(Vector3 moveDirection)
     {
-        if (isLocalPlayer)
+        if (!isLocalPlayer) return;
         {
             characterController.Move(moveDirection * Time.deltaTime);
         }
@@ -78,21 +76,17 @@ public class Character : NetworkBehaviour
 
     void Update()
     {
-        if (isLocalPlayer)
-        {
-            movementSM.CurrentState.HandleInput();
-            movementSM.CurrentState.LogicUpdate();
-        }
+        if (!isLocalPlayer) return;
+        movementSM.CurrentState.HandleInput();
+        movementSM.CurrentState.LogicUpdate();
         debug.text = movementSM.CurrentState.GetType().Name;
     }
 
     void FixedUpdate()
     {
-        if (isLocalPlayer)
-        {
-            movementSM.CurrentState.PhysicsUpdate();
-            MouseLook();
-        }
+        if (!isLocalPlayer) return;
+        movementSM.CurrentState.PhysicsUpdate();
+        MouseLook();
     }
 
     void MouseLook()
