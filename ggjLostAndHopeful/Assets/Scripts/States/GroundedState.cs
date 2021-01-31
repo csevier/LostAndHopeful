@@ -13,6 +13,7 @@ public class GroundedState : State
     public override void Enter()
     {
         base.Enter();
+        character.animator.Play("Idle");
     }
 
     public override void Exit()
@@ -26,10 +27,22 @@ public class GroundedState : State
         Vector3 forward = character.transform.TransformDirection(Vector3.forward);
         Vector3 right = character.transform.TransformDirection(Vector3.right);
         Vector3 up = character.transform.TransformDirection(Vector3.up);
-        float curSpeedX = speed * Input.GetAxis("Vertical");
+        Vector2 curInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        float curSpeedX = speed * curInput.y;
         float curSpeedY = character.moveDirection.y;
-        float curSpeedZ = speed * Input.GetAxis("Horizontal");
-        character.moveDirection = (forward * curSpeedX) + (right * curSpeedZ) + (up * curSpeedY);
+        float curSpeedZ = speed * curInput.x;
+        Vector3 moveDir = (forward * curSpeedX) + (right * curSpeedZ) + (up * curSpeedY);
+        Debug.Log(curInput.magnitude);
+        if (curInput.magnitude > 0.5) {
+
+            character.animator.Play("Run");
+        }
+        else
+        {
+            character.animator.Play("Idle");
+        }
+        character.moveDirection = moveDir; 
+
     }
 
     public override void PhysicsUpdate()

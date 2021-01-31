@@ -12,6 +12,7 @@ public class JumpingState : AirborneState
     {
         base.Enter();
         character.moveDirection.y = character.jumpForce;
+        character.animator.Play("Jump");
     }
 
     public override void LogicUpdate()

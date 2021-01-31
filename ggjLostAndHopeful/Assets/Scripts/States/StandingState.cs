@@ -14,6 +14,7 @@ public class StandingState : GroundedState
     public override void Enter()
     {
         base.Enter();
+        character.animator.Play("Idle");
         speed = character.speed;
         jump = false;
     }
