@@ -950,6 +950,7 @@ GameObject:
   - component: {fileID: 7221958788332617143}
   - component: {fileID: 5652966141436969946}
   - component: {fileID: 2017466423465502573}
+  - component: {fileID: 7396754002559588926}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1106,6 +1107,7 @@ MonoBehaviour:
   lookYLimit: 60
   lineOfSightDistance: 10
   debug: {fileID: 0}
+  animator: {fileID: 0}
   hopefulTexture: {fileID: 2800000, guid: 62394dd072bf65342aa54984453753a0, type: 3}
   lostTexture: {fileID: 2800000, guid: ee36303381d0aa74786fff8ad70f91d0, type: 3}
   lostTexture2: {fileID: 2800000, guid: 6ef34c0f497e7c447953c40defab308e, type: 3}
@@ -1183,6 +1185,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7396754002559588926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5107346857859109300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 1
+  animator: {fileID: 2017466423465502573}
 --- !u!1 &5107346858008947689
 GameObject:
   m_ObjectHideFlags: 0
