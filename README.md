@@ -1,4 +1,4 @@
-Lost and Hopeful
+Optimiste (we changed the name mid way...)
 ====================
 
 Global Game Jam 2021
